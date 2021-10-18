@@ -1,0 +1,128 @@
+<html lang="en">
+  
+<head>
+    <meta charset="UTF-8">
+    <title>CGI JSON LABO</title>
+  
+    <!-- INCLUDING JQUERY-->
+    <script src=
+"https://code.jquery.com/jquery-3.5.1.js">
+    </script>
+    
+     <!-- INCLUDING BOOTSTRAP-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+    <!-- CSS FOR STYLING THE PAGE -->
+    <style>
+        table {
+            margin: 0 auto;
+            font-size: large;
+            border: 1px solid black;
+        }
+  
+        h1 {
+            text-align: center;
+            color: #006600;
+            font-size: xx-large;
+            font-family: 'Gill Sans', 
+                'Gill Sans MT', ' Calibri', 
+                'Trebuchet MS', 'sans-serif';
+        }
+  
+        td {
+            background-color: #E4F5D4;
+            border: 1px solid black;
+        }
+  
+        th,
+        td {
+            font-weight: bold;
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+  
+        td {
+            font-weight: lighter;
+        }
+    </style>
+</head>
+  
+<body>
+    <section>
+        <h1>All Owned Turtles</h1>
+  
+        <!-- TABLE CONSTRUCTION-->
+        <table id='table'>
+            <!-- HEADING FORMATION -->
+            <tr>
+                <th>Id</th>
+                <th>Spiece</th>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+
+            <form action="http://pi-arno/cgi-bin/main.c" method="POST">
+                <div>
+                  <label for="Id">ID?</label>
+                  <input name="Id" id="Id" value="">
+                </div>
+                <div>
+                  <label for="Turtle">Spiece?</label>
+                  <input name="Turtle" id="Turtle" value="">
+                </div>
+                <div>
+                    <label for="Name">Name?</label>
+                    <input name="Name" id="Name" value="">
+                  </div>
+                  <div>
+                    <label for="Age">Age?</label>
+                    <input name="Age" id="Age" value="">
+                  </div>
+                <div>
+                  <button>POST</button>
+                </div>
+              </form>
+              
+  
+            <script>
+                $(document).ready(function () {
+                    console.log("script works");
+  
+                    // FETCHING DATA FROM JSON FILE
+                    $.getJSON("data.json", 
+                            function (data) {
+                                console.log(data)
+                        var turtle = '';
+  
+                        // ITERATING THROUGH OBJECTS
+                        $.each(data, function (key, value) {
+  
+                            //CONSTRUCTION OF ROWS HAVING
+                            // DATA FROM JSON OBJECT
+                            turtle += '<tr>';
+                            turtle += '<td>' + 
+                                value.Id + '</td>';
+  
+                            turtle += '<td>' + 
+                                value.Turtle + '</td>';
+  
+                            turtle += '<td>' + 
+                                value.Name + '</td>';
+  
+                            turtle += '<td>' + 
+                                value.Age + '</td>';
+  
+                            turtle += '</tr>';
+                        });
+                          
+                        //INSERTING ROWS INTO TABLE 
+                        $('#table').append(turtle);
+                    });
+                });
+            </script>
+    </section>
+</body>
+  
+</html>
